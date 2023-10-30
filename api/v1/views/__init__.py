@@ -10,4 +10,5 @@ if app_views is not None:
     from .states import *
     from .cities import *
     from .amenities import *
+    from .users import *
     from .places import *
