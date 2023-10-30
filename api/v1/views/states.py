@@ -7,22 +7,23 @@ from models.state import State
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
-def get_states():
+def get_all_states():
     """Retrieves a list of all State instances"""
     states = [obj.to_dict() for obj in storage.all(State).values()]
     return jsonify(states)
 
 
-@app_views.route('/states/<state_id>', methods=['GET'])
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_state(state_id):
     """Retrieve the state with the id, state_id"""
-    state = storage.get(State, state_id).to_dict()
-    if len(state) == 0:
+    state = storage.get(State, state_id)
+    if not state:
         abort(404)
-    return jsonify(state)
+    return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
+@app_views.route('/states/<state_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def del_state(state_id):
     """Delete the state with id, state_id"""
     state = storage.get(State, state_id)
@@ -47,7 +48,7 @@ def new_state():
     return jsonify(state.to_dict()), 201
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'])
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
     """Updates an existing State object"""
     state = storage.get(State, state_id)
