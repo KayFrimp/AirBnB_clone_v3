@@ -9,3 +9,5 @@ if app_views is not None:
     from .index import *
     from .states import *
     from .cities import *
+    from .amenities import *
+    from .places import *
