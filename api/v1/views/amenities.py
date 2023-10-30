@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""A new view for Place objects that handles all default RESTFul \
-API actions"""
+"""A new view for Place objects that handles all default RESTFul API actions"""
 from api.v1.views import app_views
 from models import storage
 from models.amenity import Amenity
@@ -58,6 +57,8 @@ def update_amenity(amenity_id):
     amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
+    if not request.get_json():
+        abort(400, 'Not a JSON')
     attributes = request.get_json()
     for key, value in attributes.items():
         if key not in ['id', 'created_at', 'updated_at']:
