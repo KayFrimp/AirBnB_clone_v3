@@ -86,36 +86,3 @@ class TestDbStorage(unittest.TestCase):
         dict2 = models.storage.all(State)
         count2 = models.storage.count(State)
         self.assertEqual(len(dict2), count2)
-
-
-class TestFileStorage(unittest.TestCase):
-    """Test the FileStorage class"""
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_all_returns_dict(self):
-        """Test that all returns a dictionaty"""
-        self.assertIs(type(models.storage.all()), dict)
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_all_no_class(self):
-        """Test that all returns all rows when no class is passed"""
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_new(self):
-        """test that new adds an object to the database"""
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_save(self):
-        """Test that save properly saves objects to file.json"""
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_get(self):
-        """Test that get returns the object based on the class and id"""
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_count_returns_all_objs_number(self):
-        """Test that count returns the total number
-        of all objects in storage"""
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_count_returns_objs_number(self):
-        """Test that count returns the total number of objects in storage"""
