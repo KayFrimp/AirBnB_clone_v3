@@ -40,21 +40,17 @@ def del_place_amenity(place_id, amenity_id):
     if not amenity:
         abort(404)
     if STORAGE_TYPE == 'db':
-        for amenity in place.amenities:
-            if amenity.id == amenity_id:
-                # Perform deletion
-                place.amenities.remove(amenity)
-                place.save()
-                return jsonify({}), 200
-        abort(404)
+        if amenity not in place.amenities:
+            abort(404)
+        place.amenities.remove(amenity)
+        storage.save()
+        return jsonify({}), 200
     else:
-        for obj_id in place.amenity_ids:
-            if obj_id == amenity_id:
-                # Perform deletion
-                place.amenity_ids.pop(amenity_id, None)
-                place.save()
-                return jsonify({}), 200
-        abort(404)
+        if amenity_id not in place.amenity_ids:
+            abort(404)
+        place.amenity_ids.pop(amenity_id, None)
+        storage.save()
+        return jsonify({}), 200
 
 
 @app_views.route('/places/<place_id>/amenities/<amenity_id>',
