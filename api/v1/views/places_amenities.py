@@ -43,15 +43,15 @@ def del_place_amenity(place_id, amenity_id):
         for amenity in place.amenities:
             if amenity.id == amenity_id:
                 # Perform deletion
-                storage.delete(amenity)
-                storage.save()
+                place.amenities.remove(amenity)
+                place.save()
                 return jsonify({}), 200
         abort(404)
     else:
         for obj_id in place.amenity_ids:
             if obj_id == amenity_id:
                 # Perform deletion
-                place.amenity_ids.pop(amenity_id)
+                place.amenity_ids.pop(amenity_id, None)
                 place.save()
                 return jsonify({}), 200
         abort(404)
