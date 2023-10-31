@@ -24,7 +24,7 @@ def get_all_places(city_id):
 def get_place(place_id):
     """API fetches Place object with place_id"""
     place = storage.get(Place, place_id)
-    if not Place:
+    if not place:
         abort(404)
     return jsonify(place.to_dict())
 
